@@ -26,12 +26,12 @@ function displayDetails(total, song) {
     const div = document.createElement('div');
 
     // displaying total result
-    resultCount.innerText = `${total} songs found. Top 10 🡻`;
+    resultCount.innerText = `${total} songs found`;
 
     // displaying song title, album, artist, photo
     div.classList.add('col-lg-6');
     div.innerHTML =
-        `<div id="song-${song.id}" class="single-result row align-items-center text-center m-3 p-3">
+        `<div id="song-${song.id}" class="single-result row justify-content-center align-items-center text-center m-3 p-3">
             <div class="col-md-12">
                 <h3 class="mb-3">${song.title}</h3>
                 <p class="lead">Duration : ${Math.floor(song.duration/60)}:${song.duration%60}</p>
@@ -52,11 +52,15 @@ function displayDetails(total, song) {
         fetch(`https://api.lyrics.ovh/v1/${song.artist.name}/${song.title}`)
             .then(response => response.json())
             .then(info => {
-
-                // displaying lyrics
                 const lyricsResult = document.getElementById(`song-${song.id}`);
                 lyricsResult.classList.add('lyricsResult');
-                lyricsResult.innerHTML = `<pre class="text-white">${info.lyrics}</pre>`;
+
+                // checking if we have that lyrics
+                if (info.error) {
+                    lyricsResult.innerHTML = "Sorry, our API doesn't have this lyrics at this moment";
+                } else {
+                    lyricsResult.innerHTML = `<pre class="text-white">${info.lyrics}</pre>`;
+                };
             });
-    })
+    });
 }
