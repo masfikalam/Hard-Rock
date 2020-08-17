@@ -44,3 +44,12 @@ body {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 15px;
 }
+
+.lyricsResult {
+    background-color: #00000075;
+    border: 2px solid lime;
+    padding: 10px;
+    max-height: 400px;
+    overflow-X: hidden;
+    overflow-Y: scroll;
+}
